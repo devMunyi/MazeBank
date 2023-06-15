@@ -38,6 +38,7 @@
 
 #choiceBox-pop-menu {
     -fx-background-color: #ECF39E;
+    -fx-pref-width: 350;
 }
 
 /* Login Form Styles */
