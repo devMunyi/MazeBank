@@ -21,14 +21,17 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/login.fxml"));
-            root = fxmlLoader.load();
-            scene = new Scene(root);
+            if(root == null){
+                root = fxmlLoader.load();
+            }
 
+            scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
             // System.out.println("App is Up & Running");
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println("Error: "+ e.getMessage());
+            // e.printStackTrace();
         }
 
         stage.setOnCloseRequest(e -> {
@@ -54,7 +57,8 @@ public class App extends Application {
                 Platform.exit();
                 stage.close();
             }catch (Exception e){
-                System.out.println(e);
+                // System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
