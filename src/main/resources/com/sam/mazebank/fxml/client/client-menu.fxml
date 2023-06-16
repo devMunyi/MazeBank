@@ -20,7 +20,7 @@
                <FontAwesomeIconView glyphName="HOME" size="20" />
             </graphic>
          </Button>
-         <Button fx:id="Transactions_btn" mnemonicParsing="false" text="Transactions">
+         <Button fx:id="transactions_btn" mnemonicParsing="false" text="Transactions">
             <graphic>
                <FontAwesomeIconView glyphName="HANDSHAKE_ALT" size="20" />
             </graphic>

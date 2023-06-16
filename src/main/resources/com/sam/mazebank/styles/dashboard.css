@@ -1,0 +1,146 @@
+.dashboard {
+    -fx-background-color: #EEE;
+}
+
+.user_name {
+    -fx-font-size: 1.8em;
+    -fx-font-family: "Calibri light";
+}
+
+.date_lbl {
+    -fx-text-fill: #AAA;
+    -fx-font-size: 1.1em;
+    -fx-font-family: "Calibri light";
+}
+
+.section_title {
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Calibri light";
+}
+
+/* Accounts View */
+.accounts_view {
+    -fx-background-color: #FFF;
+    -fx-background-radius: 10 0 0 10;
+    -fx-padding: 10 0 10 0;
+    -fx-alignment: center;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: #DDD;
+    -fx-spacing: 10;
+}
+
+.account {
+    -fx-background-color: linear-gradient(to right, #132A13, #253F25);
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, #AAA, 10, 0, 0, 10);
+}
+
+.account VBox {
+    -fx-background-color: #FFF;
+}
+
+.account Text {
+    -fx-fill: #FFF;
+    -fx-font-family: "Calibri light";
+    -fx-font-size: 1.5em;
+}
+
+.account FontAwesomeIconView {
+    -fx-fill: #FFF;
+}
+
+.account_balance {
+    -fx-text-fill: #FFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 1.8em;
+    -fx-font-weight: bold;
+}
+
+.account_number {
+    -fx-text-fill: #FFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 1.4em;
+    -fx-text-alignment: center;
+}
+
+/* Account Summary View */
+.summary_view {
+    -fx-background-color: #FFF;
+    -fx-padding: 5 10 5 10;
+    -fx-spacing: 5;
+    -fx-alignment: center_left;
+}
+
+.acc_summary_container {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-alignment: center_left;
+    -fx-border-radius: 10;
+    -fx-border-color: #999;
+    -fx-border-width: 1;
+    -fx-border-style: dashed;
+}
+
+.acc_summary_container Line {
+    -fx-stroke: #AAA;
+}
+
+.income_amount {
+    -fx-text-fill: #00AA00;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.4em;
+}
+
+.expense_amount {
+    -fx-text-fill: #AA0000;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.4em;
+}
+
+/* Transactions View */
+.transaction_listview {
+    -fx-background-color: #EEE;
+    -fx-border-width: 0 0 0 0;
+    -fx-border-color: #AAA;
+}
+
+.transaction_listview .scroll-bar:vertical { /* removes vertical scrollbar */
+    -fx-scale-x: 0;
+}
+
+.list-cell {
+    -fx-background-color: #EEE;
+    -fx-padding: 15 0 15 0;
+}
+
+/* Send Money View */
+.new_trans_container {
+    -fx-background-color: #EEE;
+    -fx-padding: 20 10 20 10;
+    -fx-spacing: 10;
+    -fx-alignment: center_left;
+}
+
+.new_trans_container Label {
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.3em;
+}
+
+.new_trans_container TextField  {
+    -fx-pref-height: 40;
+    -fx-background-color: #FFF;
+    -fx-effect: dropshadow(three-pass-box, #AAA, 3, 0, 0, 3);
+}
+
+.new_trans_container Button {
+    -fx-background-color: linear-gradient(to right, #132A13, #253F25);
+    -fx-effect: dropshadow(three-pass-box, #AAA, 3, 0, 0, 3);
+    -fx-pref-width: 230;
+    -fx-font-size: 1.3em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #FFF;
+}
+
+.new_trans_container Button:hover {
+    -fx-cursor: hand;
+}
