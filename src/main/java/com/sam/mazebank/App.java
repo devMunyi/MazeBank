@@ -1,5 +1,7 @@
 package com.sam.mazebank;
 
+import com.sam.mazebank.models.Model;
+import com.sam.mazebank.views.ViewFactory;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -19,20 +21,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/login.fxml"));
-            if(root == null){
-                root = fxmlLoader.load();
-            }
 
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            // System.out.println("App is Up & Running");
-        }catch (Exception e){
-            System.out.println("Error: "+ e.getMessage());
-            // e.printStackTrace();
-        }
+        Model.getInstance().getViewFactory().showLoginWindow();
 
         stage.setOnCloseRequest(e -> {
             e.consume();

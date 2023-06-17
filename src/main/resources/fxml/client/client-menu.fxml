@@ -42,7 +42,7 @@
             </graphic>
          </Button>
       </VBox>
-      <VBox alignment="CENTER" layoutX="21.0" layoutY="610.0" prefHeight="120.0" prefWidth="130.0" styleClass="report_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+      <VBox alignment="CENTER" layoutX="21.0" layoutY="610.0" prefHeight="120.0" prefWidth="130.0" styleClass="report_container" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="report_container" text="Report bug/suggestion?" />
             <Label text="Use  this to report any error or suggestion." />
