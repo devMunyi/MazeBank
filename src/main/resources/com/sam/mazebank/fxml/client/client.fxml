@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sam.mazebank.controllers.client.ClientController"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+    <left>
+        <fx:include source="client-menu.fxml"/>
+    </left>
 
-</AnchorPane>
+    <center>
+        <fx:include source="dashboard.fxml"/>
+    </center>
+</BorderPane>
