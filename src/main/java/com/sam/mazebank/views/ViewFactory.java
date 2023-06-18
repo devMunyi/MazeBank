@@ -1,6 +1,8 @@
 package com.sam.mazebank.views;
 
 import com.sam.mazebank.controllers.client.ClientController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,10 +12,19 @@ import javafx.stage.Stage;
 
 public class ViewFactory {
     // client views
+
+    private final StringProperty clientSelectedNavItem;
     private AnchorPane dashboardView;
+    private AnchorPane transactionsView;
 
     //constructor
-    public ViewFactory(){}
+    public ViewFactory(){
+        this.clientSelectedNavItem = new SimpleStringProperty("");
+    }
+
+    public StringProperty getClientSelectedNavItem(){
+        return clientSelectedNavItem;
+    }
 
     // method to load client dashboard
     public AnchorPane getDashboardView(){
@@ -29,6 +40,18 @@ public class ViewFactory {
         return dashboardView;
     }
 
+    public AnchorPane getTransactionsView() {
+
+        if(transactionsView == null){
+            try {
+                transactionsView = new FXMLLoader(getClass().getResource("/fxml/client/transactions.fxml")).load();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+
+        return transactionsView;
+    }
 
     // to display login window
     public void showLoginWindow(){
