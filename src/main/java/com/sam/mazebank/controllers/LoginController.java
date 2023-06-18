@@ -1,8 +1,6 @@
 package com.sam.mazebank.controllers;
 
 import com.sam.mazebank.models.Model;
-// import com.sam.mazebank.views.AccountType;
-import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -18,10 +16,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        login_btn.setOnAction(event ->
-            onLogin());
-
-        // acc_selector.getItems().addAll(AccountType.CLIENT, AccountType.ADMIN);
+        login_btn.setOnAction(event -> onLogin());
     }
 
     private void onLogin(){

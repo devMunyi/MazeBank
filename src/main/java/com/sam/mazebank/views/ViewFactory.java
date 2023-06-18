@@ -16,6 +16,7 @@ public class ViewFactory {
     private final StringProperty clientSelectedNavItem;
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
+    private AnchorPane accountsView;
 
     //constructor
     public ViewFactory(){
@@ -26,7 +27,9 @@ public class ViewFactory {
         return clientSelectedNavItem;
     }
 
-    // method to load client dashboard
+    /*
+     Client Views Section
+     */
     public AnchorPane getDashboardView(){
         if(dashboardView == null){
             try {
@@ -52,6 +55,22 @@ public class ViewFactory {
 
         return transactionsView;
     }
+
+    public AnchorPane getAccountsView() {
+        if(accountsView == null){
+            try {
+                accountsView = new FXMLLoader(getClass().getResource("/fxml/client/accounts.fxml")).load();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        return accountsView;
+    }
+
+
+    /*
+    Admin Views Section
+     */
 
     // to display login window
     public void showLoginWindow(){
