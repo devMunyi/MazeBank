@@ -3,6 +3,8 @@ package com.sam.mazebank.views;
 import com.sam.mazebank.controllers.client.ClientController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -44,7 +46,7 @@ public class ViewFactory {
         createStage(loader);
     }
 
-    public void createStage(FXMLLoader loader){
+    private void createStage(FXMLLoader loader){
         Scene scene = null;
 
         try {
@@ -58,6 +60,28 @@ public class ViewFactory {
         stage.setScene(scene);
         stage.setTitle("Maze Bank");
         stage.show();
+    }
+
+    public void closeStageWithoutAlert(Stage stage){
+        try {
+            stage.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    private void closeStageWithAlert(Stage stage){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("About to Close the App");
+        alert.setHeaderText("Are you sure want to close the App?");
+
+        if(alert.showAndWait().get() == ButtonType.OK){
+            try {
+                stage.close();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
     }
 
 }

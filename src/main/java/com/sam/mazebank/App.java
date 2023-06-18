@@ -26,11 +26,7 @@ public class App extends Application {
 
         stage.setOnCloseRequest(e -> {
             e.consume();
-            try {
-                exitApp(stage);
-            }catch (Exception e2){
-                System.out.println(e2);
-            }
+            exitApp(stage);
         });
     }
 

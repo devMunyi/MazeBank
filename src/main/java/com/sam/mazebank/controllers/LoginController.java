@@ -4,10 +4,8 @@ import com.sam.mazebank.models.Model;
 // import com.sam.mazebank.views.AccountType;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,7 +18,15 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        login_btn.setOnAction(event -> Model.getInstance().getViewFactory().showClientWindow());
+        login_btn.setOnAction(event ->
+            onLogin());
+
         // acc_selector.getItems().addAll(AccountType.CLIENT, AccountType.ADMIN);
+    }
+
+    private void onLogin(){
+        Stage stage = (Stage)login_btn.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStageWithoutAlert(stage);
+        Model.getInstance().getViewFactory().showClientWindow();
     }
 }
