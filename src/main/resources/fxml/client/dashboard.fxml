@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="700.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../styles/dashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sam.mazebank.controllers.client.DashboardController">
-    <Text fx:id="user_name" layoutX="27.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hi, John" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
+    <Text fx:id="user_name" layoutX="27.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hi, Samuel" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
     <Label fx:id="login_date_lbl" layoutX="554.0" layoutY="30.0" styleClass="date_lbl" text="Today, 2023-06-16" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="27.0" />
     <Text layoutX="46.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="My Accounts" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
     <Text layoutX="614.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Accounts Summary" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0" />
