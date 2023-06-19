@@ -24,7 +24,7 @@
 
 .account_selector {
     -fx-background-color: #ECF39E;
-    -fx-pref-width: 350;
+    -fx-pref-width: 100;
 }
 
 .account_selector .label {
@@ -38,7 +38,6 @@
 
 #choiceBox-pop-menu {
     -fx-background-color: #ECF39E;
-    -fx-pref-width: 350;
 }
 
 /* Login Form Styles */

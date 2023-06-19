@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sam.mazebank.controllers.admin.AdminController"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:id="admin_parent">
+    <left>
+        <fx:include source="admin-menu.fxml"/>
+    </left>
 
-</AnchorPane>
+    <center>
+        <fx:include source="create-client.fxml"/>
+    </center>
+
+</BorderPane>

@@ -1,6 +1,7 @@
 package com.sam.mazebank.controllers.client;
 
 import com.sam.mazebank.models.Model;
+import com.sam.mazebank.views.ClientMenuOptions;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,14 +25,14 @@ public class ClientMenuController implements Initializable {
     }
 
     private void onDashboard(){
-        Model.getInstance().getViewFactory().getClientSelectedNavItem().set("Dashboard");
+        Model.getInstance().getViewFactory().getClientSelectedNavItem().set(ClientMenuOptions.DASHBOARD);
     }
 
     private void onTransactions(){
-        Model.getInstance().getViewFactory().getClientSelectedNavItem().set("Transactions");
+        Model.getInstance().getViewFactory().getClientSelectedNavItem().set(ClientMenuOptions.TRANSACTIONS);
     }
 
     private void onAccounts(){
-        Model.getInstance().getViewFactory().getClientSelectedNavItem().set("Accounts");
+        Model.getInstance().getViewFactory().getClientSelectedNavItem().set(ClientMenuOptions.ACCOUNTS);
     }
 }

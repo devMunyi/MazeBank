@@ -24,7 +24,7 @@
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
       </padding>
       <Label id="choose-prompt-text" text="Choose Your Account Type:"/>
-      <ChoiceBox fx:id="acc_selector" prefWidth="150.0" styleClass="account_selector"/>
+      <ChoiceBox fx:id="acc_selector" prefWidth="100.0" styleClass="account_selector"/>
       <Label fx:id="payee_address_lbl" text="Payee Address:"/>
       <TextField fx:id="payee_address_fld" styleClass="input_field"/>
       <Label text="Password:"/>
