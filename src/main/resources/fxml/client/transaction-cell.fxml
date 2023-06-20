@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Line?>
 
 
-<AnchorPane prefHeight="60.0" prefWidth="550.0" styleClass="cell-container" stylesheets="@../../styles/transaction-cell.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sam.mazebank.controllers.client.TransactionCellController">
+<AnchorPane prefHeight="60.0" prefWidth="550.0" styleClass="cell-container" stylesheets="@../../styles/transaction-cell.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="14.0" prefHeight="50.0" prefWidth="50.0" styleClass="trans_icon_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="0.0">
          <children>
