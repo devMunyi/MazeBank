@@ -25,6 +25,7 @@ public class ViewFactory {
     private final ObjectProperty<AdminMenuOptions> adminSelectedNavItem;
     private AnchorPane createClientView;
     private AnchorPane clientsView;
+    private AnchorPane depositView;
 
     // constructor
     public ViewFactory(){
@@ -121,6 +122,17 @@ public class ViewFactory {
             }
         }
         return clientsView;
+    }
+
+    public AnchorPane getDepositView() {
+        if(depositView == null){
+            try {
+                depositView = new FXMLLoader(getClass().getResource("/fxml/admin/deposit.fxml")).load();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        return depositView;
     }
 
     public void showAdminWindow(){
