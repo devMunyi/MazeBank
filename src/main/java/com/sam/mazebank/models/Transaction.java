@@ -7,7 +7,6 @@ import java.time.LocalDate;
 public class Transaction {
     private final StringProperty sender;
     private final StringProperty receiver;
-
     private final DoubleProperty amount;
     private final ObjectProperty<LocalDate> date;
     private final StringProperty message;
