@@ -27,6 +27,7 @@ public class LoginController implements Initializable {
     }
 
     private void onLogin(){
+        Stage stage = (Stage)login_btn.getScene().getWindow();
         AccountType selectedLoginType = Model.getInstance().getViewFactory().getAccountType();
         String pAddressOrUsernameInput = payee_address_fld.getText().trim();
         String passInput = password_fld.getCharacters().toString().trim(); // or just use .getText()
@@ -38,6 +39,7 @@ public class LoginController implements Initializable {
             }else{
                 error_lbl.setText("Username cannot be empty!");
             }
+            return;
         }
 
         if(pAddressOrUsernameInput.length() < 3){
@@ -46,13 +48,14 @@ public class LoginController implements Initializable {
             }else{
                 error_lbl.setText("Username is too short!");
             }
+            return;
         }
 
         if(passInput.isEmpty()){
             error_lbl.setText("Password cannot be empty!");
+            return;
         }
 
-        Stage stage = (Stage)login_btn.getScene().getWindow();
         if(selectedLoginType == AccountType.ADMIN){
             Model.getInstance().evaluateAdminCred(pAddressOrUsernameInput, passInput);
             if(Model.getInstance().isAdminLoggedIn()){
