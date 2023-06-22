@@ -1,9 +1,10 @@
 package com.sam.mazebank.models;
 
 import com.sam.mazebank.views.ViewFactory;
+import java.sql.ResultSet;
+import java.time.LocalDate;
 
 public class Model {
-
     // utility section
     private static Model model;
     private final ViewFactory viewFactory;
@@ -12,6 +13,9 @@ public class Model {
     // Client section
     private Client client;
     private boolean isClientLoggedIn;
+
+    // Admin Section
+    private boolean isAdminLoggedIn;
 
 
     private Model(){
@@ -45,7 +49,64 @@ public class Model {
         return client;
     }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public boolean isClientLoggedIn() {
         return isClientLoggedIn;
+    }
+
+    public void setClientLoggedIn(boolean clientLoggedIn) {
+        isClientLoggedIn = clientLoggedIn;
+    }
+
+    public void evaluateClientCred(String pAddress, String password){
+        CheckingAccount checkingAccount;
+        SavingsAccount savingsAccount;
+
+        try {
+            ResultSet resultSet = new DatabaseDriver().getClientData(pAddress, password);
+            if(resultSet != null && resultSet.isBeforeFirst()){
+                this.client.firstNameProperty().set(resultSet.getString("FirstName"));
+                this.client.lastNameProperty().set(resultSet.getString("LastName"));
+                this.client.payeeAddressProperty().set(resultSet.getString("PayeeAddress"));
+                String[] dateParts = resultSet.getString("Date").split("-");
+                LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
+                this.client.dateCreatedProperty().set(date);
+
+                // set logged in success to true
+                this.isClientLoggedIn = true;
+            }else {
+                this.isClientLoggedIn = false;
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+    }
+
+
+    public boolean isAdminLoggedIn() {
+        return isAdminLoggedIn;
+    }
+
+    public void setAdminLoggedIn(boolean adminLoggedIn) {
+        isAdminLoggedIn = adminLoggedIn;
+    }
+
+    public void evaluateAdminCred(String username, String password){
+        ResultSet resultSet = new DatabaseDriver().getAdminData(username, password);
+
+        try {
+            if(resultSet != null && resultSet.isBeforeFirst()){
+                this.isAdminLoggedIn = true;
+            }else {
+                this.isAdminLoggedIn = false;
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 }
