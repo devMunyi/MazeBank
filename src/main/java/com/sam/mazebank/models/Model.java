@@ -64,9 +64,10 @@ public class Model {
     public void evaluateClientCred(String pAddress, String password){
         CheckingAccount checkingAccount;
         SavingsAccount savingsAccount;
+        DatabaseDriver databaseDriver1 = new DatabaseDriver();
+        ResultSet resultSet = databaseDriver1.getClientData(pAddress, password);
 
         try {
-            ResultSet resultSet = new DatabaseDriver().getClientData(pAddress, password);
             if(resultSet != null && resultSet.isBeforeFirst()){
                 this.client.firstNameProperty().set(resultSet.getString("FirstName"));
                 this.client.lastNameProperty().set(resultSet.getString("LastName"));
@@ -75,18 +76,19 @@ public class Model {
                 LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
                 this.client.dateCreatedProperty().set(date);
 
-                // set logged in success to true
+                // set isClientLoggedIn flag to true
                 this.isClientLoggedIn = true;
             }else {
                 this.isClientLoggedIn = false;
             }
 
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println("Error occurred in evaluateClientCred: "+e);
+        }finally {
+            Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
         }
 
     }
-
 
     public boolean isAdminLoggedIn() {
         return isAdminLoggedIn;
@@ -97,8 +99,8 @@ public class Model {
     }
 
     public void evaluateAdminCred(String username, String password){
-        ResultSet resultSet = new DatabaseDriver().getAdminData(username, password);
-
+        DatabaseDriver databaseDriver1 = new DatabaseDriver();
+        ResultSet resultSet = databaseDriver1.getAdminData(username, password);
         try {
             if(resultSet != null && resultSet.isBeforeFirst()){
                 this.isAdminLoggedIn = true;
@@ -106,7 +108,9 @@ public class Model {
                 this.isAdminLoggedIn = false;
             }
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println("Error occurred in evaluateAdminCred: "+e);
+        }finally {
+            Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
         }
     }
 }

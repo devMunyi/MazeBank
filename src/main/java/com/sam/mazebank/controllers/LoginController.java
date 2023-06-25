@@ -66,7 +66,8 @@ public class LoginController implements Initializable {
                 error_lbl.setText("No such credentials!");
             }
 
-        }else {
+            // Model.getInstance().getDatabaseDriver().closeConnection();
+        }else if(selectedLoginType == AccountType.CLIENT) {
             Model.getInstance().evaluateClientCred(pAddressOrUsernameInput, passInput);
             if(Model.getInstance().isClientLoggedIn()){
                 // client is authenticated
@@ -77,6 +78,7 @@ public class LoginController implements Initializable {
                 error_lbl.setText("No such credentials");
             }
 
+            // Model.getInstance().getDatabaseDriver().closeConnection();
         }
     }
 
