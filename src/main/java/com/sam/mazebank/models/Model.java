@@ -69,7 +69,6 @@ public class Model {
     public void evaluateClientCred(String pAddress, String password){
         CheckingAccount checkingAccount;
         SavingsAccount savingsAccount;
-        // DatabaseDriver databaseDriver1 = new DatabaseDriver();
         ResultSet resultSet = databaseDriver.getClientData(pAddress, password);
 
         try {
@@ -80,6 +79,10 @@ public class Model {
                 String[] dateParts = resultSet.getString("Date").split("-");
                 LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
                 this.client.dateCreatedProperty().set(date);
+                checkingAccount = getCheckingAccount(pAddress);
+                savingsAccount = getSavingsAccount(pAddress);
+                this.client.checkingAccountProperty().set(checkingAccount);
+                this.client.savingsAccountProperty().set(savingsAccount);
 
                 // set isClientLoggedIn flag to true
                 this.isClientLoggedIn = true;
@@ -89,10 +92,7 @@ public class Model {
 
         }catch (Exception e){
             System.out.println("Error occurred in evaluateClientCred: "+e);
-        }finally {
-            // Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
         }
-
     }
 
     public boolean isAdminLoggedIn() {
@@ -115,8 +115,6 @@ public class Model {
             }
         }catch (Exception e){
             System.out.println("Error occurred in evaluateAdminCred: "+e);
-        }finally {
-            // Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
         }
     }
 
@@ -143,6 +141,31 @@ public class Model {
         }catch (Exception e){
             System.out.println("Error Occurred in setClients: "+e);
         }
+    }
+
+    public ObservableList<Client> searchClient(String pAddress){
+        ObservableList<Client> searchResults = FXCollections.observableArrayList();
+        ResultSet resultSet = databaseDriver.searchClient(pAddress);
+        CheckingAccount checkingAccount;
+        SavingsAccount savingsAccount;
+
+        try {
+            while (resultSet.next()){
+                String fName = resultSet.getString("FirstName");
+                String lName = resultSet.getString("LastName");
+                String[] dateParts = resultSet.getString("Date").split("-");
+                LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
+                checkingAccount = getCheckingAccount(pAddress);
+                savingsAccount = getSavingsAccount(pAddress);
+                searchResults.add(new Client(fName, lName, pAddress, checkingAccount, savingsAccount, date));
+
+            }
+        }catch (Exception e){
+            System.out.println("Error occurred in model/searchClient: "+ e.getMessage());
+            e.printStackTrace();
+        }
+
+        return searchResults;
     }
 
 

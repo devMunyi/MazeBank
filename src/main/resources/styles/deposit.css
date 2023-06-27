@@ -27,7 +27,7 @@ Button {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 1.6em;
     -fx-font-family: "Calibri Light";
-    -fx-pref-width: 200;
+    -fx-pref-width: 150;
 }
 
 Button:hover {

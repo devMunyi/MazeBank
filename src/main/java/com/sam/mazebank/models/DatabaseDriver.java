@@ -117,6 +117,34 @@ public class DatabaseDriver {
         }
     }
 
+    public ResultSet searchClient(String pAddress){
+        ResultSet resultSet = null;
+        Statement statement;
+
+        try {
+            statement = this.conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Clients WHERE PayeeAddress = '"+pAddress+"';");
+        }catch (SQLException e){
+            System.out.println("Error occurred in searchClient "+e.getMessage());
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
+
+    public boolean depositSavings(String pAddress, double amount){
+        Statement statement;
+        boolean okay = false;
+        try {
+            statement = this.conn.createStatement();
+            statement.executeUpdate("UPDATE SavingsAccounts SET Balance = "+amount+" WHERE Owner = '"+pAddress+"';");
+            okay = true;
+        }catch (SQLException e){
+            System.out.println("Error occurred in depositSavings: "+ e.getMessage());
+        }
+
+        return okay;
+    }
 
 
     // Utility Section (methods applying to both client and admin)
