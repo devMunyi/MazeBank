@@ -23,7 +23,7 @@
             <PasswordField fx:id="password_fld" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Payee Address:" />
             <CheckBox fx:id="pAddress_box" mnemonicParsing="false" />
-            <Label fx:id="pAddress_lbl" styleClass="payee_address_lbl" text="auto generated unique address" />
+            <Label fx:id="pAddress_lbl" styleClass="payee_address_lbl" text="" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accounts:" />
             <CheckBox fx:id="ch_acc_chk_box" mnemonicParsing="false" text="Add Checking Account" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Account Balance:" />

@@ -22,7 +22,7 @@ public class CreateClientController implements Initializable {
     public Button create_client_btn;
     public Label error_lbl;
 
-    private String pAddress;
+    private String pAddress = "";
     // private boolean createCheckingAccFlag;
     // private boolean createSavingsAccFlag;
 
@@ -54,6 +54,28 @@ public class CreateClientController implements Initializable {
         String fName = fName_fld.getText();
         String lName = lName_fld.getText();
         String password = password_fld.getText();
+
+        // validate fields
+        error_lbl.setText("");
+        error_lbl.setStyle("fx-text-fill: #FF0000;");
+        if(fName.isEmpty()) {
+            error_lbl.setText("Firstname cannot be empty!");
+            return;
+        }
+        if(lName.isEmpty()) {
+            error_lbl.setText("Lastname cannot be empty!");
+            return;
+        }
+        if(password.isEmpty()){
+            error_lbl.setText("Password cannot be empty!");
+            return;
+        }
+
+        if(pAddress.isEmpty()) {
+            error_lbl.setText("Payee Address cannot be empty!");
+            return;
+        }
+
         LocalDate createdAt = LocalDate.now();
         Model.getInstance().getDatabaseDriver().createClient(fName, lName, pAddress, password, createdAt);
 
@@ -110,4 +132,5 @@ public class CreateClientController implements Initializable {
         sv_acc_chk_box.setSelected(false);
         sv_amount_fld.setText("");
     }
+
 }
