@@ -2,7 +2,6 @@ package com.sam.mazebank.views;
 
 import com.sam.mazebank.controllers.admin.ClientCellController;
 import com.sam.mazebank.models.Client;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 
@@ -15,7 +14,7 @@ public class ClientCellFactory extends ListCell<Client> {
             setText(null);
             setGraphic(null);
         }else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/client.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/client-cell.fxml"));
             ClientCellController controller = new ClientCellController(client);
             loader.setController(controller);
             setText(null);

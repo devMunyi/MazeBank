@@ -45,6 +45,20 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public ResultSet getAllClientsData(){
+        ResultSet resultSet = null;
+        Statement statement;
+
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Clients");
+        }catch (SQLException e){
+            System.out.println("Error occurred in getAllClientsData: "+ e);
+        }
+
+        return resultSet;
+    }
+
     // Admin Section (Methods applying to admin only)
     public ResultSet getAdminData(String username, String password){
         // Connection conn = this.connect();
@@ -63,7 +77,7 @@ public class DatabaseDriver {
     }
 
     public void createClient(String fName, String lName, String pAddress, String pass, LocalDate date){
-        Connection conn = this.connect();
+        // Connection conn = this.connect();
         Statement statement;
 
         try {
@@ -72,12 +86,12 @@ public class DatabaseDriver {
         }catch (Exception e) {
             System.out.println("ERROR on creating client: " +e);
         }finally {
-            closeConn2(conn);
+            // closeConn2(conn);
         }
     }
 
     public void createCheckingAccount(String owner, String accountNumber, int tLimit, double balance){
-        Connection conn = this.connect();
+        // Connection conn = this.connect();
         Statement statement;
         try {
             statement = conn.createStatement();
@@ -85,12 +99,12 @@ public class DatabaseDriver {
         }catch (Exception e){
             System.out.println("ERROR on creating checking account: " + e);
         }finally {
-            closeConn2(conn);
+            // closeConn2(conn);
         }
     }
 
     public void createSavingsAccount(String pAddress, String accountNumber, double wLimit, double balance){
-        Connection conn = this.connect();
+        // Connection conn = this.connect();
         Statement statement;
 
         try {
@@ -99,7 +113,7 @@ public class DatabaseDriver {
         }catch (SQLException e){
             System.out.println("ERROR on creating savings account: "+e);
         }finally {
-            closeConn2(conn);
+            // closeConn2(conn);
         }
     }
 
@@ -119,7 +133,7 @@ public class DatabaseDriver {
         };
     }
     public int getLastClientsId(){
-        Connection conn = this.connect();
+        // Connection conn = this.connect();
         Statement statement;
         ResultSet resultSet;
         int id = 0;
@@ -131,12 +145,40 @@ public class DatabaseDriver {
         }catch (SQLException e){
             System.out.println("Error occurred in getLastClientsId: "+e);
         }finally {
-            closeConn2(conn);
+            // closeConn2(conn);
         }
         return id;
     }
 
     public Connection getConn() {
         return conn;
+    }
+
+    public ResultSet getCheckingAccount(String pAddress){
+        Statement statement;
+        ResultSet resultSet = null;
+
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM CheckingAccounts WHERE Owner = '"+pAddress+"';");
+        }catch (SQLException e){
+            System.out.println("Error occurred in the dbDriver getCheckingAccount: "+e);
+        }
+
+        return  resultSet;
+    }
+
+    public ResultSet getSavingsAccount(String pAddress){
+        Statement statement;
+        ResultSet resultSet = null;
+
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccounts WHERE Owner = '"+pAddress+"';");
+        }catch (SQLException e){
+            System.out.println("Error occurred in the dbDriver getCheckingAccount: "+e);
+        }
+
+        return  resultSet;
     }
 }

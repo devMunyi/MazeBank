@@ -1,6 +1,9 @@
 package com.sam.mazebank.models;
 
 import com.sam.mazebank.views.ViewFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.ResultSet;
 import java.time.LocalDate;
 
@@ -16,6 +19,7 @@ public class Model {
 
     // Admin Section
     private boolean isAdminLoggedIn;
+    private final ObservableList<Client> clients;
 
 
     private Model(){
@@ -25,6 +29,7 @@ public class Model {
         // client Section
         this.isClientLoggedIn = false;
         this.client = new Client("", "", "", null, null, null);
+        this.clients = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance(){
@@ -64,8 +69,8 @@ public class Model {
     public void evaluateClientCred(String pAddress, String password){
         CheckingAccount checkingAccount;
         SavingsAccount savingsAccount;
-        DatabaseDriver databaseDriver1 = new DatabaseDriver();
-        ResultSet resultSet = databaseDriver1.getClientData(pAddress, password);
+        // DatabaseDriver databaseDriver1 = new DatabaseDriver();
+        ResultSet resultSet = databaseDriver.getClientData(pAddress, password);
 
         try {
             if(resultSet != null && resultSet.isBeforeFirst()){
@@ -85,7 +90,7 @@ public class Model {
         }catch (Exception e){
             System.out.println("Error occurred in evaluateClientCred: "+e);
         }finally {
-            Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
+            // Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
         }
 
     }
@@ -99,8 +104,9 @@ public class Model {
     }
 
     public void evaluateAdminCred(String username, String password){
-        DatabaseDriver databaseDriver1 = new DatabaseDriver();
-        ResultSet resultSet = databaseDriver1.getAdminData(username, password);
+        // DatabaseDriver databaseDriver1 = new DatabaseDriver();
+        ResultSet resultSet = databaseDriver.getAdminData(username, password);
+
         try {
             if(resultSet != null && resultSet.isBeforeFirst()){
                 this.isAdminLoggedIn = true;
@@ -110,7 +116,72 @@ public class Model {
         }catch (Exception e){
             System.out.println("Error occurred in evaluateAdminCred: "+e);
         }finally {
-            Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
+            // Model.getInstance().getDatabaseDriver().closeConn2(databaseDriver1.getConn());
         }
+    }
+
+    public ObservableList<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(){
+        CheckingAccount checkingAccount = null;
+        SavingsAccount savingsAccount = null;
+
+        ResultSet resultSet = databaseDriver.getAllClientsData();
+        try {
+            while (resultSet.next()){
+                String fName = resultSet.getString("FirstName");
+                String lName = resultSet.getString("LastName");
+                String pAddress = resultSet.getString("PayeeAddress");
+                String[] dateParts = resultSet.getString("Date").split("-");
+                LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
+                checkingAccount = getCheckingAccount(pAddress);
+                savingsAccount = getSavingsAccount(pAddress);
+                clients.add(new Client(fName, lName, pAddress, checkingAccount, savingsAccount, date));
+            }
+        }catch (Exception e){
+            System.out.println("Error Occurred in setClients: "+e);
+        }
+    }
+
+
+    /*
+    Utility methods
+     */
+    public CheckingAccount getCheckingAccount(String pAddress){
+     CheckingAccount checkingAccount = null;
+     ResultSet resultSet = databaseDriver.getCheckingAccount(pAddress);
+
+     try {
+         while(resultSet.next()){
+             String num = resultSet.getString("AccountNumber");
+             int tLimit = (int) resultSet.getDouble("TransactionLimit");
+             double accBalance = resultSet.getDouble("Balance");
+             checkingAccount = new CheckingAccount(pAddress, num, accBalance, tLimit);
+         }
+
+     }catch (Exception e){
+         System.out.println("Error occurred in the model getCheckingAccount "+e);
+     }
+     return checkingAccount;
+    }
+
+    public SavingsAccount getSavingsAccount(String pAddress){
+        SavingsAccount savingsAccount = null;
+        ResultSet resultSet = databaseDriver.getSavingsAccount(pAddress);
+
+        try {
+            while (resultSet.next()){
+                String num = resultSet.getString("AccountNumber");
+                double wLimit = resultSet.getDouble("WithdrawalLimit");
+                double accBalance = resultSet.getDouble("Balance");
+
+                savingsAccount = new SavingsAccount(pAddress, num, accBalance, wLimit);
+            }
+        }catch (Exception e){
+            System.out.println("Error occurred in the model getSavingsAccount "+e);
+        }
+        return savingsAccount;
     }
 }
