@@ -13,9 +13,11 @@ public class Model {
     private final ViewFactory viewFactory;
     private final DatabaseDriver databaseDriver;
 
-    // Client section
+    // Client variables
     private Client client;
     private boolean isClientLoggedIn;
+    private final ObservableList<Transaction> latestTransactions;
+    private final ObservableList<Transaction> allTransactions;
 
     // Admin Section
     private boolean isAdminLoggedIn;
@@ -23,13 +25,16 @@ public class Model {
 
 
     private Model(){
+        // utility variables initializations
         this.viewFactory = new ViewFactory();
         this.databaseDriver = new DatabaseDriver();
 
-        // client Section
+        // client object variables initialization
         this.isClientLoggedIn = false;
         this.client = new Client("", "", "", null, null, null);
         this.clients = FXCollections.observableArrayList();
+        this.latestTransactions = FXCollections.observableArrayList();
+        this.allTransactions = FXCollections.observableArrayList();
     }
 
     public static synchronized Model getInstance(){
@@ -95,6 +100,46 @@ public class Model {
         }
     }
 
+    public void prepareTransactions(ObservableList<Transaction> transaction, int rLimit){
+        String loggedInUserAddress = this.client.payeeAddressProperty().get();
+        ResultSet resultSet = databaseDriver.getTransactions(loggedInUserAddress, rLimit);
+
+        try {
+            while(resultSet.next()){
+                String sender = resultSet.getString("Sender");
+                String receiver = resultSet.getString("Receiver");
+                double amount = resultSet.getDouble("Amount");
+                String[] dateParts = resultSet.getString("Date").split("-");
+                LocalDate date = LocalDate.of(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[1]));
+                String message = resultSet.getString("Message");
+
+                transaction.add(new Transaction(sender, receiver, amount, date, message));
+            }
+        }catch (Exception e){
+            System.out.println("Error occurred in prepareTransactions: "+e);
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setLatestTransactions(){
+        prepareTransactions(this.latestTransactions, 4);
+    }
+
+    public ObservableList<Transaction> getLatestTransactions() {
+        return latestTransactions;
+    }
+
+
+    public void setAllTransactions(){
+        prepareTransactions(this.allTransactions, -1);
+    }
+
+    public ObservableList<Transaction> getAllTransactions() {
+        return allTransactions;
+    }
+
+    // Admin Section
     public boolean isAdminLoggedIn() {
         return isAdminLoggedIn;
     }

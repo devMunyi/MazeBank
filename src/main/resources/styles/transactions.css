@@ -15,5 +15,6 @@
 
 .transactions_container .list-cell {
     -fx-background-color: #EEE;
-    -fx-pref-width: 800;
+    -fx-pref-width: 750;
+    -fx-padding: 10 0 10 0;
 }

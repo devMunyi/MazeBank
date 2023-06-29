@@ -59,6 +59,23 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public ResultSet getTransactions(String pAddress, int rLimit){
+
+        ResultSet resultSet = null;
+        Statement statement;
+
+        try {
+            statement = this.conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Transactions WHERE Sender = '"+pAddress+"' OR Receiver = '"+pAddress+"' ORDER BY ID DESC LIMIT "+rLimit+";");
+        }catch (SQLException e){
+            System.out.println("Error Occurred in getTransactions: "+ e);
+            e.printStackTrace();
+        }
+
+        return  resultSet;
+
+    }
+
     // Admin Section (Methods applying to admin only)
     public ResultSet getAdminData(String username, String password){
         // Connection conn = this.connect();

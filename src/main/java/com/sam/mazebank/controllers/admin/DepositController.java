@@ -32,6 +32,8 @@ public class DepositController implements Initializable {
 
     public void onClientSearch(){
 
+        notice_lbl.setText("");
+
         if(pAddress_fld.getText() == null || pAddress_fld.getText().isEmpty()){
             notice_lbl.setStyle("-fx-text-fill: #FF0000;");
             notice_lbl.setText("Please enter payee address first!");
@@ -65,10 +67,17 @@ public class DepositController implements Initializable {
              notice_lbl.setStyle("-fx-text-fill: green;");
              notice_lbl.setText("Deposit was made successfully!");
              bal_lbl.setText(String.valueOf("$"+newBalance));
+             emptyFields();
          }else{
              notice_lbl.setStyle("-fx-text-fill: #FF0000;");
              notice_lbl.setText("Something went wrong!");
          }
+    }
+
+
+    public void emptyFields(){
+        pAddress_fld.setText("");
+        amount_fld.setText("");
     }
 
 }

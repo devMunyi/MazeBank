@@ -1,6 +1,8 @@
 package com.sam.mazebank.controllers.client;
 
 import com.sam.mazebank.models.Model;
+import com.sam.mazebank.models.Transaction;
+import com.sam.mazebank.views.TransactionCellFactory;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,7 +21,7 @@ public class DashboardController implements Initializable {
     public Label savings_acc_num;
     public Label income_lbl;
     public Label expenses_lbl;
-    public ListView transactions_listview;
+    public ListView<Transaction> transactions_listview;
     public TextField payee_fld;
     public TextField amount_fld;
     public TextArea message_fld;
@@ -29,6 +31,9 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bindData();
+        initLatestTransactions();
+        transactions_listview.setItems(Model.getInstance().getLatestTransactions());
+        transactions_listview.setCellFactory(e -> new TransactionCellFactory());
     }
 
     public void bindData(){
@@ -38,5 +43,11 @@ public class DashboardController implements Initializable {
         checking_acc_num.textProperty().bind(Model.getInstance().getClient().checkingAccountProperty().get().accountNumberProperty());
         savings_bal.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().balanceProperty().asString());
         savings_acc_num.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().accountNumberProperty());
+    }
+
+    public void initLatestTransactions(){
+        if(Model.getInstance().getLatestTransactions().isEmpty()){
+            Model.getInstance().setLatestTransactions();
+        }
     }
 }

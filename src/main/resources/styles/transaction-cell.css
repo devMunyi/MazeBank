@@ -30,6 +30,7 @@
     -fx-text-fill: #FFFFFF;
     -fx-padding: 5;
     -fx-font-weight: 700;
+    -fx-pref-width: 50;
 }
 
 .trans_amount_lbl FontAwesomeIconView {

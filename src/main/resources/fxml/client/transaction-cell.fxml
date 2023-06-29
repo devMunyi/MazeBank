@@ -4,25 +4,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 
-
-<AnchorPane prefHeight="60.0" prefWidth="550.0" styleClass="cell-container" stylesheets="@../../styles/transaction-cell.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox layoutX="14.0" prefHeight="50.0" prefWidth="50.0" styleClass="trans_icon_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <FontAwesomeIconView fx:id="in_icon" glyphName="LONG_ARROW_RIGHT" size="17" />
-            <FontAwesomeIconView fx:id="out_icon" glyphName="LONG_ARROW_LEFT" size="17" />
-         </children>
-      </VBox>
-      <Label fx:id="trans_date_lbl" layoutX="76.0" layoutY="22.0" styleClass="trans_date_lbl" text="2023-06-20" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="22.0" />
-      <Label fx:id="sender_lbl" layoutX="196.0" layoutY="22.0" styleClass="trans_pAddress_lbl" text="Patrick" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="22.0" />
-      <Line endY="20.0" layoutX="276.0" layoutY="20.0" />
-      <Label fx:id="receiver_lbl" layoutX="316.0" layoutY="17.0" styleClass="trans_pAddress_lbl" text="John" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="17.0" />
-      <Label fx:id="amount_lbl" layoutX="459.0" layoutY="17.0" prefHeight="26.0" prefWidth="60.0" styleClass="trans_amount_lbl" text="2000" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="459.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="17.0">
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="DOLLAR" />
-         </graphic>
-      </Label>
-   </children>
+<AnchorPane prefHeight="60.0" prefWidth="600.0" styleClass="cell-container" stylesheets="@../../styles/transaction-cell.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <VBox layoutX="14.0" prefHeight="50.0" prefWidth="50.0" styleClass="trans_icon_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="0.0">
+      <FontAwesomeIconView fx:id="in_icon" glyphName="LONG_ARROW_RIGHT" size="17" />
+      <FontAwesomeIconView fx:id="out_icon" glyphName="LONG_ARROW_LEFT" size="17" />
+   </VBox>
+   <Label fx:id="trans_date_lbl" layoutX="76.0" layoutY="22.0" styleClass="trans_date_lbl" text="2023-06-20" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="22.0" />
+   <Label fx:id="sender_lbl" layoutX="196.0" layoutY="22.0" styleClass="trans_pAddress_lbl" text="Patrick" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="22.0" />
+   <Label fx:id="receiver_lbl" layoutX="316.0" layoutY="17.0" styleClass="trans_pAddress_lbl" text="John" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="198.0" AnchorPane.topAnchor="17.0" />
+   <Label fx:id="amount_lbl" alignment="CENTER" prefHeight="26.0" prefWidth="35.0" style="-fx-pref-width: 300;" styleClass="trans_amount_lbl" text="2000" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="459.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="17.0">
+      <graphic>
+         <FontAwesomeIconView fill="WHITE" glyphName="DOLLAR" />
+      </graphic>
+   </Label>
 </AnchorPane>
