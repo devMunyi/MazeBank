@@ -144,3 +144,8 @@
 .new_trans_container Button:hover {
     -fx-cursor: hand;
 }
+
+#notice_lbl {
+    -fx-font-size: 10;
+    -fx-text-fill: #FF0000;
+}

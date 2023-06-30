@@ -2,6 +2,7 @@ package com.sam.mazebank.models;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class DatabaseDriver {
     private Connection conn;
@@ -76,6 +77,71 @@ public class DatabaseDriver {
 
     }
 
+    public boolean addTransaction(String sender, String receiver, double amount, String message){
+        boolean okay = false;
+        Statement statement;
+
+        try {
+            statement = this.conn.createStatement();
+            statement.executeUpdate("INSERT INTO Transactions(Sender, Receiver, Amount, Date, Message) VALUES ('"+sender+"', '"+receiver+"', "+amount+", '"+LocalDate.now()+"', '"+message+"');");
+            okay = true;
+        }catch (SQLException e){
+            System.out.println("Error Occurred in addTransaction: "+e);
+            e.printStackTrace();
+        }
+
+        return okay;
+    }
+
+    public double getSavingsAccountBal(String pAddress){
+        ResultSet resultSet;
+        Statement statement;
+        double balance = 0;
+
+        try {
+            statement = this.conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccounts WHERE Owner = '"+pAddress+"';");
+             balance = resultSet.getDouble("Balance");
+        }catch (SQLException e){
+            System.out.println("Error Occurred in getSavingsAccountBal: "+ e);
+            e.printStackTrace();
+        }
+
+        return  balance;
+    }
+
+    public boolean updateBalance(String pAddress, double amount, String operation){
+
+        ResultSet resultSet;
+        Statement statement;
+        boolean okay = false;
+        double newBalance = 0;
+
+        try {
+            statement = this.conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccounts WHERE Owner = '"+pAddress+"';");
+            newBalance = resultSet.getDouble("Balance");
+            if(Objects.equals(operation, "ADD")){
+                newBalance += amount;
+                // update balance with the new balance
+                statement.executeUpdate("UPDATE SavingsAccounts SET Balance = '"+newBalance+"' WHERE Owner = '"+pAddress+"';");
+                okay = true;
+             }else{
+                if(newBalance >= amount){
+                    newBalance -= amount;
+                    // update balance with the new balance
+                    statement.executeUpdate("UPDATE SavingsAccounts SET Balance = '"+newBalance+"' WHERE Owner = '"+pAddress+"';");
+                    okay = true;
+                }
+            }
+        }catch (SQLException e){
+            System.out.println("Error Occurred in updateBalance: "+e);
+            e.printStackTrace();
+        }
+
+        return okay;
+    }
+
     // Admin Section (Methods applying to admin only)
     public ResultSet getAdminData(String username, String password){
         // Connection conn = this.connect();
@@ -87,9 +153,8 @@ public class DatabaseDriver {
             resultSet = statement.executeQuery("SELECT * FROM Admins WHERE username = '"+ username +"' AND password = '"+ password +"';");
         }catch (Exception e){
             System.out.println("Error occurred in getAdminData: "+e);
-        }finally {
-            // closeConn(conn);
         }
+
         return resultSet;
     }
 
@@ -115,8 +180,6 @@ public class DatabaseDriver {
             statement.executeUpdate("INSERT INTO CheckingAccounts(Owner, AccountNumber, TransactionLimit, Balance) VALUES('"+owner+"', '"+accountNumber+"', "+tLimit+", "+balance+");");
         }catch (Exception e){
             System.out.println("ERROR on creating checking account: " + e);
-        }finally {
-            // closeConn2(conn);
         }
     }
 
