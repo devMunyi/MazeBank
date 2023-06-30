@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,6 +35,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bindData();
+        accountSummary();
         initLatestTransactions();
         transactions_listview.setItems(Model.getInstance().getLatestTransactions());
         transactions_listview.setCellFactory(e -> new TransactionCellFactory());
@@ -159,5 +161,31 @@ public class DashboardController implements Initializable {
     public void attachNotice(String message, String fxClass){
         notice_lbl.setStyle(fxClass);
         notice_lbl.setText(message);
+    }
+
+    public void accountSummary(){
+        double income = 0;
+        double expense = 0;
+
+        // ensure database call to get all transactions is made conditionally
+        if(Model.getInstance().getAllTransactions().isEmpty()){
+            Model.getInstance().setAllTransactions();
+        }
+
+        String loggedUser = Model.getInstance().getClient().payeeAddressProperty().get();
+        for (Transaction transaction: Model.getInstance().getAllTransactions()){
+            // means an expense
+            String transSender = transaction.senderProperty().get();
+            if(Objects.equals(transSender, loggedUser)){
+                // System.out.println("YES transSender equal to loggedUser");
+                expense += transaction.amountProperty().get();
+            }else {
+                // System.out.println("YES transSender NOT equal to loggedUser");
+                income += transaction.amountProperty().get();
+            }
+        }
+
+        income_lbl.setText("+ $"+income);
+        expenses_lbl.setText("- $"+expense);
     }
 }
